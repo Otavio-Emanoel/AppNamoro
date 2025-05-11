@@ -1,7 +1,7 @@
-import { View, Text, Image, StyleSheet, ImageBackground } from 'react-native';
+import { View, Text, Image, StyleSheet, ImageBackground, Animated } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { useCallback } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 import quadro1 from '../assets/HomeScreen/Quadro 1.png'
 import quadro2 from '../assets/HomeScreen/Quadro 2.png'
@@ -13,9 +13,18 @@ import background from '../assets/HomeScreen/BackgroundHome.png';
 
 export function HomeScreen() {
 
+    // Fontes
     const [fontsLoaded] = useFonts({
         'LoveYaLikeASister': require('../assets/fonts/Love_Ya_Like_A_Sister/LoveYaLikeASister-Regular.ttf'),
     });
+
+    // Animações - Movidas para dentro do componente
+    const fadeTitle = useRef(new Animated.Value(0)).current;
+    const fadeQuadro1 = useRef(new Animated.Value(0)).current;
+    const fadeQuadro2 = useRef(new Animated.Value(0)).current;
+    const fadeRosa = useRef(new Animated.Value(0)).current;
+    const fadeCoracoes = useRef(new Animated.Value(0)).current;
+    const fadeTextos = useRef(new Animated.Value(0)).current;
 
     const onLayoutRootView = useCallback(async () => {
         if (fontsLoaded) {
@@ -23,9 +32,54 @@ export function HomeScreen() {
         }
     }, [fontsLoaded]);
 
+    useEffect(() => {
+        // Sequência de animações
+        Animated.sequence([
+            // Título
+            Animated.timing(fadeTitle, {
+                toValue: 1,
+                duration: 1000,
+                useNativeDriver: true,
+            }),
+            // Primeiro quadro
+            Animated.timing(fadeQuadro1, {
+                toValue: 1,
+                duration: 800,
+                useNativeDriver: true,
+            }),
+            // Segundo quadro
+            Animated.timing(fadeQuadro2, {
+                toValue: 1,
+                duration: 800,
+                useNativeDriver: true,
+            }),
+            // Rosa e corações juntos
+            Animated.parallel([
+                Animated.timing(fadeRosa, {
+                    toValue: 1,
+                    duration: 600,
+                    useNativeDriver: true,
+                }),
+                Animated.timing(fadeCoracoes, {
+                    toValue: 1,
+                    duration: 600,
+                    useNativeDriver: true,
+                }),
+            ]),
+            // Textos finais
+            Animated.timing(fadeTextos, {
+                toValue: 1,
+                duration: 1000,
+                useNativeDriver: true,
+            }),
+        ]).start();
+    }, []);
+
     if (!fontsLoaded) {
         return null;
     }
+
+    // Corpo do componente
 
     return (
         <ImageBackground
@@ -35,50 +89,42 @@ export function HomeScreen() {
             onLayout={onLayoutRootView}
         >
             <View style={styles.contentContainer}>
-                <Text style={styles.title}>O + A</Text>
-                
+                <Animated.Text style={[styles.title, { opacity: fadeTitle }]}>
+                    O + A
+                </Animated.Text>
+
                 <View style={styles.polaroidContainer}>
-                    {/* Primeiro quadro */}
-                    <View style={styles.quadroWrapper}>
-                        <Image
-                            source={quadro1}
-                            style={styles.quadro}
-                        />
-                        <Image
-                            source={fotoQuadro1}
-                            style={styles.fotoQuadro}
-                        />
-                    </View>
+                    <Animated.View style={[styles.quadroWrapper, { opacity: fadeQuadro1 }]}>
+                        <Image source={quadro1} style={styles.quadro} />
+                        <Image source={fotoQuadro1} style={styles.fotoQuadro} />
+                    </Animated.View>
 
-                    {/* Segundo quadro */}
-                    <View style={[styles.quadroWrapper, styles.quadroSegundo]}>
-                        <Image
-                            source={quadro2}
-                            style={styles.quadro}
-                        />
-                        <Image
-                            source={fotoQuadro2}
-                            style={[styles.fotoQuadro, styles.fotoQuadro2]}
-                        />
-                    </View>
+                    <Animated.View style={[
+                        styles.quadroWrapper,
+                        styles.quadroSegundo,
+                        { opacity: fadeQuadro2 }
+                    ]}>
+                        <Image source={quadro2} style={styles.quadro} />
+                        <Image source={fotoQuadro2} style={[styles.fotoQuadro, styles.fotoQuadro2]} />
+                    </Animated.View>
 
-                    {/* Rosa */}
-                    <Image
+                    <Animated.Image
                         source={rosa}
-                        style={styles.roseImage}
+                        style={[styles.roseImage, { opacity: fadeRosa }]}
                     />
 
-                    {/* Corações */}
-                    <Image 
+                    <Animated.Image
                         source={coracoezinhos}
-                        style={styles.coracoezinhos}
+                        style={[styles.coracoezinhos, { opacity: fadeCoracoes }]}
                     />
                 </View>
 
-                <View style={styles.textContainer}>
+                <Animated.View style={[styles.textContainer, { opacity: fadeTextos }]}>
                     <Text style={styles.message}>TE AMOOOOO!</Text>
-                    <Text style={styles.subtitle}>JÁ SE PASSOU UM{'\n'}ANO ESTANDO AO{'\n'}SEU LADO</Text>
-                </View>
+                    <Text style={styles.subtitle}>
+                        JÁ SE PASSOU UM{'\n'}ANO ESTANDO AO{'\n'}SEU LADO
+                    </Text>
+                </Animated.View>
             </View>
         </ImageBackground>
     );
