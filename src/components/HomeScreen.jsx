@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width: 236,
         height: 246,
+        left: 20,
     },
     quadro: {
         width: '100%',
@@ -129,7 +130,7 @@ const styles = StyleSheet.create({
     },
     quadroSegundo: {
         top: 175,
-        left: 80,
+        left: 90,
     },
     roseImage: {
         width: 81,
