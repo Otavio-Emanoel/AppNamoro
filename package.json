@@ -1,6 +1,6 @@
 {
   "license": "0BSD",
-  "main": "index.js",
+  "main": "index.jsx",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -13,7 +13,12 @@
     "react": "18.3.1",
     "react-native": "0.76.9",
     "react-native-paper": "4.9.2",
-    "@expo/vector-icons": "^14.0.2"
+    "@expo/vector-icons": "^14.0.2",
+    "react-dom": "18.3.1",
+    "react-native-web": "~0.19.13",
+    "@expo/metro-runtime": "~4.0.1",
+    "expo-font": "~13.0.4",
+    "expo-splash-screen": "~0.29.24"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
