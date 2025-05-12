@@ -24,7 +24,7 @@ export function Heart() {
                     duration: 800,
                     useNativeDriver: true,
                 }),
-            ]).start(() => pulsate()); // Loop da animação
+            ]).start(() => pulsate()); 
         };
 
         pulsate();

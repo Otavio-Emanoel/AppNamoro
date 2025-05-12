@@ -4,6 +4,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useCallback, useEffect, useRef } from 'react';
 import { About } from './About';
 import { Heart } from './Heart';
+import { PhotosWithDate } from './PhotosWithDate';
 
 import quadro1 from '../assets/HomeScreen/Quadro 1.png'
 import quadro2 from '../assets/HomeScreen/Quadro 2.png'
@@ -149,6 +150,7 @@ export function HomeScreen() {
             </View>
             <About scrollY={scrollY} />
             <Heart />
+            <PhotosWithDate />
             </Animated.ScrollView>
     );
 }
