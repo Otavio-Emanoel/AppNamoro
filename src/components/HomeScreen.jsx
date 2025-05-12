@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef } from 'react';
 import { About } from './About';
 import { Heart } from './Heart';
 import { PhotosWithDate } from './PhotosWithDate';
+import { Photos } from './Photos';
 
 import quadro1 from '../assets/HomeScreen/Quadro 1.png'
 import quadro2 from '../assets/HomeScreen/Quadro 2.png'
@@ -151,6 +152,7 @@ export function HomeScreen() {
             <About scrollY={scrollY} />
             <Heart />
             <PhotosWithDate />
+            <Photos />
             </Animated.ScrollView>
     );
 }
