@@ -3,6 +3,7 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback, useEffect, useRef } from 'react';
 import { About } from './About';
+import { Heart } from './Heart';
 
 import quadro1 from '../assets/HomeScreen/Quadro 1.png'
 import quadro2 from '../assets/HomeScreen/Quadro 2.png'
@@ -96,10 +97,7 @@ export function HomeScreen() {
     return (
         <Animated.ScrollView
         style={[{ flex: 1 }, { backgroundColor: '#0D0D0D' }]}
-        onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-            { useNativeDriver: true }
-        )}
+        onScroll={handleScroll}
         scrollEventThrottle={16}
     >
             <View style={[styles.mainContainer, { height: windowHeight }]}>
@@ -150,6 +148,7 @@ export function HomeScreen() {
                 </ImageBackground>
             </View>
             <About scrollY={scrollY} />
+            <Heart />
             </Animated.ScrollView>
     );
 }
